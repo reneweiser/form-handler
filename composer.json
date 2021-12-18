@@ -1,0 +1,22 @@
+{
+    "name": "rweiser/form-handler",
+    "require": {
+        "illuminate/collections": "^8.76",
+        "symfony/yaml": "^5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rweiser\\FormHandler\\": "src/",
+            "Rweiser\\FormHandler\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "René Weiser",
+            "email": "rene@encoding.group"
+        }
+    ]
+}
