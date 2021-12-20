@@ -2,11 +2,12 @@
 
 namespace Rweiser\FormHandler;
 
-class Radio implements IRenderable, IHasValue, IHasLabel, IRequirable
+class Radio implements IRenderable, IHasValue, IRequirable
 {
     private string $label;
+    private string $name;
     private bool $isRequired;
-    private bool $value;
+    private string $value;
 
     /**
      * @param array $data
@@ -14,6 +15,7 @@ class Radio implements IRenderable, IHasValue, IHasLabel, IRequirable
     public function __construct(array $data)
     {
         $this->label = $data['label'];
+        $this->name = $data['name'];
         $this->value = $data['value'];
         $this->isRequired = $data['is_required'];
     }
@@ -23,7 +25,7 @@ class Radio implements IRenderable, IHasValue, IHasLabel, IRequirable
         return $this->label;
     }
 
-    function value(): bool
+    function value(): string
     {
         return $this->value;
     }
@@ -36,5 +38,10 @@ class Radio implements IRenderable, IHasValue, IHasLabel, IRequirable
     public function render(IFormRenderer $renderer): string
     {
         return $renderer->renderRadio($this);
+    }
+
+    public function name(): string
+    {
+        return $this->name;
     }
 }

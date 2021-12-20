@@ -18,6 +18,7 @@ class FormFieldTest extends TestCase
     {
         $data = [
             'label' => 'Test field',
+            'name' => 'Test field name',
             'is_required' => true,
             'value' => 'Field value'
         ];
@@ -36,6 +37,7 @@ class FormFieldTest extends TestCase
     {
         $data = [
             'label' => 'Test field',
+            'name' => 'Test field name',
             'is_required' => false,
             'value' => 'Field value'
         ];
@@ -54,6 +56,7 @@ class FormFieldTest extends TestCase
     {
         $data = [
             'label' => 'Test field',
+            'name' => 'Test field name',
             'is_required' => false,
             'value' => [
                 'option 1',
@@ -76,14 +79,16 @@ class FormFieldTest extends TestCase
     {
         $data = [
             'label' => 'Test field',
+            'name' => 'Test field name',
             'is_required' => false,
-            'value' => true
+            'value' => 'some value'
         ];
 
         $selectionField = new Radio($data);
 
         $this->assertSame('Test field', $selectionField->label());
-        $this->assertTrue($selectionField->value());
+        $this->assertSame('Test field name', $selectionField->name());
+        $this->assertSame('some value', $selectionField->value());
         $this->assertFalse($selectionField->isRequired());
     }
 
@@ -94,6 +99,7 @@ class FormFieldTest extends TestCase
     {
         $data = [
             'label' => 'Test field',
+            'name' => 'Test field name',
             'is_required' => false,
             'value' => new \DateTime('NOW')
         ];

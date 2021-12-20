@@ -4,31 +4,23 @@ namespace Rweiser\FormHandler;
 
 use Illuminate\Support\Collection;
 
-class Form implements IRenderable
+class Section implements IRenderable
 {
     private Collection $fields;
     private string $name;
-    private string $url;
+    private string $label;
 
-    public function __construct(string $name)
+    public function __construct(array $data)
     {
-        $this->fields = collect([]);
-        $this->name = $name;
-    }
-
-    public function setActionUrl(string $actionUrl): void
-    {
-        $this->url = $actionUrl;
-    }
-
-    public function actionUrl(): string
-    {
-        return $this->url;
+        $this->fields = collect($data['fields'])
+            ->map(fn ($field) => FieldFactory::create($field));
+        $this->label = $data['label'];
+        $this->name = $data['name'];
     }
 
     public function render(IFormRenderer $renderer): string
     {
-        return $renderer->render($this);
+        return $renderer->renderGroup($this);
     }
 
     public function addField(IRenderable $field): void
@@ -48,6 +40,6 @@ class Form implements IRenderable
 
     public function label(): string
     {
-        return $this->name();
+        return $this->label;
     }
 }

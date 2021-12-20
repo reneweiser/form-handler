@@ -2,9 +2,10 @@
 
 namespace Rweiser\FormHandler;
 
-class DateTime implements IHasLabel, IHasValue, IRequirable, IRenderable
+class DateTime implements IRenderable, IHasValue, IRequirable
 {
     private string $label;
+    private string $name;
     private bool $isRequired;
     private \DateTime $value;
 
@@ -14,6 +15,7 @@ class DateTime implements IHasLabel, IHasValue, IRequirable, IRenderable
     public function __construct(array $data)
     {
         $this->label = $data['label'];
+        $this->name = $data['name'];
         $this->value = $data['value'];
         $this->isRequired = $data['is_required'];
     }
@@ -37,5 +39,10 @@ class DateTime implements IHasLabel, IHasValue, IRequirable, IRenderable
     public function isRequired(): bool
     {
         return $this->isRequired;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
     }
 }
