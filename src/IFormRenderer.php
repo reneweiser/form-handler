@@ -21,4 +21,6 @@ interface IFormRenderer
     public function renderTextBlock(TextBlock $textBlock): string;
 
     public function renderAlert(Alert $param);
+
+    public function renderHtml(HtmlBlock $param);
 }

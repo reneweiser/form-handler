@@ -31,6 +31,11 @@ class Form implements IRenderable
         return $renderer->render($this);
     }
 
+    public function addTemplate(IFormTemplate $template): void
+    {
+        $template->addToForm($this);
+    }
+
     public function addField(IRenderable $field): void
     {
         $this->fields->add($field);
