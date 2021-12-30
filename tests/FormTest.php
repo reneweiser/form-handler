@@ -14,7 +14,7 @@ class FormTest extends TestCase
      */
     public function it_can_be_rendered()
     {
-        $form = new Form;
+        $form = new Form('test form');
         $renderer = $this->createStub(IFormRenderer::class);
         $renderer->method('render')->willReturn('<form></form>');
 
@@ -26,9 +26,11 @@ class FormTest extends TestCase
      */
     public function it_can_add_fields()
     {
-        $form = new Form;
+        $form = new Form('test form');
         $field = $this->createStub(IRenderable::class);
 
+        $this->assertCount(0, $form->fields());
         $form->addField($field);
+        $this->assertCount(1, $form->fields());
     }
 }

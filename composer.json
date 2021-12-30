@@ -9,8 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Rweiser\\FormHandler\\": "src/",
-            "Rweiser\\FormHandler\\Tests\\": "tests/"
+            "Rweiser\\FormHandler\\": "src/"
         }
     },
     "authors": [

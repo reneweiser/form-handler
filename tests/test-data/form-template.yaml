@@ -1,0 +1,25 @@
+- type: single-line
+  label: Name
+  name: name
+  rules:
+    required: true
+    email: false
+    minLength: 3
+  message: Please enter a valid name
+
+- type: single-line
+  label: E-Mail
+  name: email
+  rules:
+    required: true
+    email: true
+  message: Please enter a valid email address
+
+- type: single-line
+  label: Text
+  name: text
+  rules:
+    required: true
+    minLength: 3
+    maxLength: 3000
+  message: Please enter a text between 3 and 3000 characters
