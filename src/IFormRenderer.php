@@ -12,7 +12,7 @@ interface IFormRenderer
 
     public function renderRadio(Radio $field): string;
 
-    public function renderDateTime(DateTime $field): string;
+    public function renderCheck(Check $field): string;
 
     public function renderGroup(Section $group): string;
 
@@ -20,7 +20,7 @@ interface IFormRenderer
 
     public function renderTextBlock(TextBlock $textBlock): string;
 
-    public function renderAlert(Alert $param);
+    public function renderAlert(Alert $param): string;
 
-    public function renderHtml(HtmlBlock $param);
+    public function renderHtml(HtmlBlock $param): string;
 }

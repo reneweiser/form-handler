@@ -1,0 +1,70 @@
+- type: section
+  label: form.user_data_label
+  name: user_data
+  fields:
+    - type: single-line
+      label: form.name
+      message: Error message for name
+      name: name
+      required: true
+      min: 5
+      max: 20
+    - type: single-line
+      label: form.name_2
+      message: Error message for name_2
+      name: name_2
+      required: false
+      min: 5
+      max: 20
+    - type: paragraph
+      label: form.text
+      message: Error message for text
+      name: text
+      required: false
+      min: 5
+      max: 20
+    - type: radio
+      label: form.type_1
+      message: Error message for type
+      name: type
+      required: false
+    - type: radio
+      label: form.type_2
+      message: Error message for type
+      name: type
+      required: false
+    - type: check
+      label: form.agree
+      message: Error message for agreed
+      name: agreed
+      required: true
+    - type: selection
+      label: form.country
+      message: Error message for country
+      name: country
+      required: true
+      selected: option 3
+      options:
+        - option 1
+        - option 2
+        - option 3
+        - option 4
+    - type: text-block
+      label: form.info
+      message: Error message for info
+      name: info
+      content: some content
+    - type: alert
+      label: form.alert
+      message: Error message for alert
+      name: alert
+      content: alert content
+- type: section
+  label: form.user_data_label
+  name: user_data_2
+  fields:
+    - type: alert
+      label: form.alert
+      message: Error message for alert
+      name: alert
+      content: alert content

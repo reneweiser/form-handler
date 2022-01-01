@@ -1,0 +1,4 @@
+- name: message
+  type: paragraph
+  label: form.message_label
+  is_required: false

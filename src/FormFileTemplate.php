@@ -2,60 +2,50 @@
 
 namespace Rweiser\FormHandler;
 
+use Illuminate\Support\Collection;
 use Symfony\Component\Yaml\Yaml;
 
 class FormFileTemplate implements IFormTemplate
 {
-    private array $template;
+    private Collection $template;
 
     public function __construct(string $fileName)
     {
         $content = file_get_contents($fileName);
         $contentArray = Yaml::parse($content);
-        $this->template = $contentArray;
+        $this->template = collect($contentArray)->map(fn ($fieldData) => FieldFactory::create($fieldData));
     }
 
     public function addToForm(Form $form): void
     {
-        collect($this->template)->each(fn ($item) => $form->addField(FieldFactory::create($item)));
+        $this->template->each(fn (IRenderable $field) => $form->addField($field));
     }
 
     public function getTemplate(): array
     {
-        return $this->template;
+        return $this->template->toArray();
     }
 
     public function getRules(): array
     {
-        return collect($this->template)->reduce(function ($acc, $cur) {
-            $acc[$cur['name']] = $this->parseRules($cur['rules']);
-
-            return $acc;
-        }, []);
+        return $this->template
+            ->reduce(fn (array $acc, IHasRules $cur) => array_merge($acc, $cur->getRules()), []);
     }
 
     public function getMessages(): array
     {
-        return collect($this->template)->reduce(function ($acc, $cur) {
-            $acc[$cur['name']] = $cur['message'];
+        return $this->template
+            ->reduce(function (array $acc, IHasRules $cur) {
+                $messages = $cur->getMessages();
+                if (count($messages) === 0)
+                    return $acc;
 
-            return $acc;
-        }, []);
+                return array_merge($acc, $messages);
+            }, []);
     }
 
-    private function parseRules(array $rawRules): array
+    public function getFields(): array
     {
-        return collect($rawRules)->reduce(function ($acc, $cur, $key) {
-            if ($cur === true) {
-                $acc[] = $key;
-                return $acc;
-            }
-
-            if ($cur === false)
-                return $acc;
-
-            $acc[$key] = $cur;
-            return $acc;
-        }, []);
+        return $this->template->toArray();
     }
 }

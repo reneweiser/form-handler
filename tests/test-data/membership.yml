@@ -1,0 +1,101 @@
+- name: user_data
+  type: section
+  label: form.user_data_label
+  fields:
+    - type: single-line
+      label: form.company_label
+      name: company
+      is_required: false
+    - type: single-line
+      label: form.user_title_label
+      name: title
+      is_required: false
+    - type: single-line
+      label: form.first_name_label
+      name: firs_name
+      is_required: true
+    - type: single-line
+      label: form.last_name_label
+      name: last_name
+      is_required: true
+    - type: single-line
+      label: form.street_label
+      name: street
+      is_required: true
+    - type: single-line
+      label: form.building_label
+      name: building
+      is_required: true
+    - type: single-line
+      label: form.post_code_label
+      name: post_codej
+      is_required: true
+    - type: single-line
+      label: form.city_label
+      name: city
+      is_required: true
+    - type: single-line
+      label: form.phone_label
+      name: phone
+      is_required: false
+    - type: single-line
+      label: form.email_label
+      name: email
+      is_required: true
+
+- name: contribution_options
+  type: section
+  label: form.contribution_options_label
+  fields:
+    - type: radio
+      label: form.single_membership_label
+      name: contribution_option
+      value: single
+      is_required: true
+    - type: radio
+      label: form.family_membership_label
+      name: contribution_option
+      value: family
+      is_required: true
+    - type: radio
+      label: form.company_membership_label
+      name: contribution_option
+      value: company
+      is_required: true
+    - type: radio
+      label: form.student_membership_label
+      name: contribution_option
+      value: student
+      is_required: true
+
+- name: bank_information
+  type: section
+  label: form.bank_information_label
+  fields:
+    - type: single-line
+      label: form.account_owner_label
+      name: account_owner
+      is_required: true
+    - type: single-line
+      label: form.account_iban_label
+      name: account_iban
+      is_required: true
+    - type: single-line
+      label: form.account_bic_label
+      name: account_bic
+      is_required: true
+
+- name: message
+  type: paragraph
+  label: form.message_label
+  is_required: false
+
+- name: privacy
+  type: check
+  label: form.privacy_label
+  value: privacy
+  is_required: true
+
+- name: alert
+  type: alert
+  text: form.required_field_label

@@ -46,13 +46,13 @@ class Form implements IRenderable
         return $this->fields;
     }
 
-    public function name(): string
+    public function getLabel(): string
     {
         return $this->name;
     }
 
-    public function label(): string
+    public function getName(): string
     {
-        return $this->name();
+        return $this->name;
     }
 }

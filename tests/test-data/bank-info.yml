@@ -1,0 +1,16 @@
+- name: bank_information
+  type: section
+  label: form.bank_information_label
+  fields:
+    - type: single-line
+      label: form.account_owner_label
+      name: account_owner
+      is_required: true
+    - type: single-line
+      label: form.account_iban_label
+      name: account_iban
+      is_required: true
+    - type: single-line
+      label: form.account_bic_label
+      name: account_bic
+      is_required: true

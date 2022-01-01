@@ -2,29 +2,17 @@
 
 namespace Rweiser\FormHandler;
 
-class SingleLine implements IRenderable, IRequirable, IHasValue
+class SingleLine implements IFormField, IRenderable, IHasRules
 {
-    private string $label;
-    private string $name;
-    private bool $isRequired;
-    private string $value;
+    private IFormField $field;
+    private array $rules;
+    private array $messages;
 
-    public function __construct(array $data)
+    public function __construct(IFormField $field)
     {
-        $this->label = $data['label'];
-        $this->name = $data['name'];
-        $this->value = $data['value'] ?? '';
-        $this->isRequired = $data['is_required'] ?? false;
-    }
-
-    public function label(): string
-    {
-        return $this->label;
-    }
-
-    public function isRequired(): bool
-    {
-        return $this->isRequired;
+        $this->field = $field;
+        $this->rules = [];
+        $this->messages = [];
     }
 
     public function render(IFormRenderer $renderer): string
@@ -32,13 +20,33 @@ class SingleLine implements IRenderable, IRequirable, IHasValue
         return $renderer->renderSingleLine($this);
     }
 
-    function value(): string
+    function getLabel(): string
     {
-        return $this->value;
+        return $this->field->getLabel();
     }
 
-    public function name(): string
+    function getName(): string
     {
-        return $this->name;
+        return $this->field->getName();
+    }
+
+    function getRules(): array
+    {
+        return $this->rules;
+    }
+
+    public function setRules(array $rules): void
+    {
+        $this->rules = $rules;
+    }
+
+    public function getMessages(): array
+    {
+        return $this->messages;
+    }
+
+    public function setMessages(string $message)
+    {
+        $this->messages[] = $message;
     }
 }

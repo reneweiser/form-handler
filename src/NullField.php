@@ -2,20 +2,20 @@
 
 namespace Rweiser\FormHandler;
 
-class NullField implements IRenderable
+class NullField implements IFormField, IRenderable
 {
 
-    public function label(): string
-    {
-        return '';
-    }
-
-    public function name(): string
-    {
-        return '';
-    }
-
     public function render(IFormRenderer $renderer): string
+    {
+        return '';
+    }
+
+    function getLabel(): string
+    {
+        return '';
+    }
+
+    function getName(): string
     {
         return '';
     }

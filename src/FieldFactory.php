@@ -4,28 +4,76 @@ namespace Rweiser\FormHandler;
 
 class FieldFactory
 {
-    public static function create($fieldData): IRenderable
+    public static function create($fieldData): IFormField
     {
+        $field = new FormField($fieldData['label'], $fieldData['name']);
         switch ($fieldData['type'])
         {
             case 'section':
-                return new Section($fieldData);
+                $section = new Section($field);
+                collect($fieldData['fields'])->each(fn ($sectionField) => $section->addField(FieldFactory::create($sectionField)));
+                return $section;
             case 'paragraph':
-                return new Paragraph($fieldData);
+                $paragraph = new Paragraph($field);
+                $paragraph->setRules(FieldFactory::filterRules($fieldData));
+                $paragraph->setMessages($fieldData['message']);
+
+                return $paragraph;
             case 'radio':
-                return new Radio($fieldData);
+                $radio = new Radio($field);
+                $radio->setRules(FieldFactory::filterRules($fieldData));
+                $radio->setMessages($fieldData['message']);
+
+                return $radio;
             case 'check':
-                return new Check($fieldData);
+                $check = new Check($field);
+                $check->setRules(FieldFactory::filterRules($fieldData));
+                $check->setMessages($fieldData['message']);
+
+                return $check;
             case 'selection':
-                return new Selection($fieldData);
+                $selection = new Selection($field);
+                $selection->setRules(FieldFactory::filterRules($fieldData));
+                $selection->setMessages($fieldData['message']);
+
+                return $selection;
             case 'single-line':
-                return new SingleLine($fieldData);
+                $singleLine = new SingleLine($field);
+                $singleLine->setRules(FieldFactory::filterRules($fieldData));
+                $singleLine->setMessages($fieldData['message']);
+
+                return $singleLine;
             case 'text-block':
-                return new TextBlock($fieldData);
+                return new TextBlock($field);
             case 'alert':
-                return new Alert($fieldData);
+                return new Alert($field);
             default:
                 return new NullField();
         }
+    }
+
+    private static function filterRules(array $fieldData): array
+    {
+        $ruleProps = collect([
+            'min',
+            'max',
+            'required',
+        ]);
+
+        return $ruleProps->reduce(function ($acc, $cur) use ($fieldData) {
+            if (!isset($fieldData[$cur]))
+                return $acc;
+
+            if (!$fieldData[$cur])
+                return $acc;
+
+            if (is_bool($fieldData[$cur])) {
+                $acc[] = $cur;
+                return $acc;
+            }
+
+            $acc[$cur] = $fieldData[$cur];
+            return $acc;
+        }, []);
     }
 }

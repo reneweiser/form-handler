@@ -2,37 +2,27 @@
 
 namespace Rweiser\FormHandler;
 
-class Radio implements IRenderable, IHasValue, IRequirable
+class Radio implements IFormField, IRenderable, IHasRules
 {
-    private string $label;
-    private string $name;
-    private bool $isRequired;
-    private string $value;
+    private IFormField $field;
+    private array $rules;
+    private array $messages;
 
-    /**
-     * @param array $data
-     */
-    public function __construct(array $data)
+    public function __construct(IFormField $field)
     {
-        $this->label = $data['label'];
-        $this->name = $data['name'];
-        $this->value = $data['value'];
-        $this->isRequired = $data['is_required'];
+        $this->field = $field;
+        $this->rules = [];
+        $this->messages = [];
     }
 
-    public function label(): string
+    function getLabel(): string
     {
-        return $this->label;
+        return $this->field->getLabel();
     }
 
-    function value(): string
+    function getName(): string
     {
-        return $this->value;
-    }
-
-    public function isRequired(): bool
-    {
-        return $this->isRequired;
+        return $this->field->getName();
     }
 
     public function render(IFormRenderer $renderer): string
@@ -40,8 +30,23 @@ class Radio implements IRenderable, IHasValue, IRequirable
         return $renderer->renderRadio($this);
     }
 
-    public function name(): string
+    public function setRules(array $rules): void
     {
-        return $this->name;
+        $this->rules = $rules;
+    }
+
+    public function getRules(): array
+    {
+        return $this->rules;
+    }
+
+    public function getMessages(): array
+    {
+        return $this->messages;
+    }
+
+    public function setMessages(string $message)
+    {
+        $this->messages[] = $message;
     }
 }

@@ -2,34 +2,48 @@
 
 namespace Rweiser\FormHandler;
 
-class TextBlock implements IRenderable
+class TextBlock implements IFormField, IRenderable, IHasRules
 {
-    private string $label;
-    private string $text;
+    private IFormField $field;
+    private string $content;
 
-    public function __construct(array $data)
+    public function __construct(IFormField $field)
     {
-        $this->label = $data['label'];
-        $this->text = $data['text'];
+        $this->field = $field;
     }
 
-    public function label(): string
+    function getLabel(): string
     {
-        return $this->label;
+        return $this->field->getLabel();
     }
 
-    public function name(): string
+    function getName(): string
     {
-        return '';
-    }
-
-    public function value(): string
-    {
-        return $this->text;
+        return $this->field->getName();
     }
 
     public function render(IFormRenderer $renderer): string
     {
         return $renderer->renderTextBlock($this);
+    }
+
+    public function setContent(string $content): void
+    {
+        $this->content = $content;
+    }
+
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    function getRules(): array
+    {
+        return [];
+    }
+
+    function getMessages(): array
+    {
+        return [];
     }
 }

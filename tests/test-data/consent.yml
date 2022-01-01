@@ -1,0 +1,9 @@
+- name: privacy
+  type: check
+  label: form.privacy_label
+  value: privacy
+  is_required: true
+
+- name: alert
+  type: alert
+  text: form.required_field_label

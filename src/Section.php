@@ -2,20 +2,25 @@
 
 namespace Rweiser\FormHandler;
 
-use Illuminate\Support\Collection;
-
-class Section implements IRenderable
+class Section implements IFormField, IRenderable, IHasRules
 {
-    private Collection $fields;
-    private string $name;
-    private string $label;
+    private IFormField $field;
+    private array $fields;
 
-    public function __construct(array $data)
+    public function __construct(IFormField $field)
     {
-        $this->fields = collect($data['fields'])
-            ->map(fn ($field) => FieldFactory::create($field));
-        $this->label = $data['label'];
-        $this->name = $data['name'];
+        $this->field = $field;
+        $this->fields = [];
+    }
+
+    function getLabel(): string
+    {
+        return $this->field->getLabel();
+    }
+
+    function getName(): string
+    {
+        return $this->field->getName();
     }
 
     public function render(IFormRenderer $renderer): string
@@ -23,23 +28,33 @@ class Section implements IRenderable
         return $renderer->renderGroup($this);
     }
 
-    public function addField(IRenderable $field): void
-    {
-        $this->fields->add($field);
-    }
-
-    public function fields(): Collection
+    public function getFields(): array
     {
         return $this->fields;
     }
 
-    public function name(): string
+    public function addField(IFormField $field): void
     {
-        return $this->name;
+        array_push($this->fields, $field);
     }
 
-    public function label(): string
+    function getRules(): array
     {
-        return $this->label;
+        return collect($this->fields)->reduce(function(array $acc, IHasRules $cur) {
+            $acc[$cur->getName()] = $cur->getRules();
+            return $acc;
+        }, []);
+    }
+
+    function getMessages(): array
+    {
+        return collect($this->fields)->reduce(function(array $acc, IHasRules $cur) {
+            $messages = $cur->getMessages();
+            if (count($messages) === 0)
+                return $acc;
+
+            $acc[$cur->getName()] = $messages;
+            return $acc;
+        }, []);
     }
 }

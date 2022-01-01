@@ -11,4 +11,6 @@ interface IFormTemplate
     public function getTemplate(): array;
 
     public function getMessages(): array;
+
+    public function getFields();
 }
