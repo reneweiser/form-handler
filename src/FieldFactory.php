@@ -4,14 +4,16 @@ namespace Rweiser\FormHandler;
 
 class FieldFactory
 {
-    public static function create($fieldData): IFormField
+    public static function create($fieldData, IFormTranslator $translator): IFormField
     {
         $field = new FormField($fieldData['label'], $fieldData['name']);
+        $field = $translator->translate($field);
+
         switch ($fieldData['type'])
         {
             case 'section':
                 $section = new Section($field);
-                collect($fieldData['fields'])->each(fn ($sectionField) => $section->addField(FieldFactory::create($sectionField)));
+                collect($fieldData['fields'])->each(fn ($sectionField) => $section->addField(FieldFactory::create($sectionField, $translator)));
                 return $section;
             case 'paragraph':
                 $paragraph = new Paragraph($field);

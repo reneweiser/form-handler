@@ -9,11 +9,11 @@ class FormFileTemplate implements IFormTemplate
 {
     private Collection $template;
 
-    public function __construct(string $fileName)
+    public function __construct(string $fileName, IFormTranslator $translator)
     {
         $content = file_get_contents($fileName);
         $contentArray = Yaml::parse($content);
-        $this->template = collect($contentArray)->map(fn ($fieldData) => FieldFactory::create($fieldData));
+        $this->template = collect($contentArray)->map(fn ($fieldData) => FieldFactory::create($fieldData, $translator));
     }
 
     public function addToForm(Form $form): void

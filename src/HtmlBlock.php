@@ -11,16 +11,6 @@ class HtmlBlock implements IRenderable
         $this->html =$html;
     }
 
-    public function label(): string
-    {
-        return '';
-    }
-
-    public function name(): string
-    {
-        return '';
-    }
-
     public function html(): string
     {
         return $this->html;
@@ -29,5 +19,15 @@ class HtmlBlock implements IRenderable
     public function render(IFormRenderer $renderer): string
     {
         return $renderer->renderHtml($this);
+    }
+
+    public function getLabel(): string
+    {
+        return '';
+    }
+
+    public function getName(): string
+    {
+        return '';
     }
 }

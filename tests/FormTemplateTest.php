@@ -6,7 +6,9 @@ use PHPUnit\Framework\TestCase;
 use Rweiser\FormHandler\Form;
 use Rweiser\FormHandler\FormFileTemplate;
 use Rweiser\FormHandler\MockFalseValidator;
+use Rweiser\FormHandler\MockFieldTranslator;
 use Rweiser\FormHandler\MockFormRenderer;
+use Rweiser\FormHandler\NullTranslator;
 use Rweiser\FormHandler\MockTrueValidator;
 
 class FormTemplateTest extends TestCase
@@ -15,7 +17,7 @@ class FormTemplateTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->template = new FormFileTemplate(__DIR__.'/test-data/user-data.yml');
+        $this->template = new FormFileTemplate(__DIR__.'/test-data/user-data.yml', new NullTranslator());
     }
 
     /**
@@ -84,5 +86,17 @@ class FormTemplateTest extends TestCase
 
         $this->assertSame([], $trueValidator->isValid($form));
         $this->assertSame(['some message'], $falseValidator->isValid($form));
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_translate_labels()
+    {
+        $template = new FormFileTemplate(__DIR__.'/test-data/user-data.yml', new MockFieldTranslator());
+
+        $fields = $template->getFields();
+        $this->assertSame('Translated', $fields[0]->getLabel());
+        $this->assertSame('Translated', $fields[1]->getLabel());
     }
 }
