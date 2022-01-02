@@ -7,6 +7,7 @@ class Radio implements IFormField, IRenderable, IHasRules
     private IFormField $field;
     private array $rules;
     private array $messages;
+    private string $value;
 
     public function __construct(IFormField $field)
     {
@@ -48,5 +49,15 @@ class Radio implements IFormField, IRenderable, IHasRules
     public function setMessages(string $message)
     {
         $this->messages[] = $message;
+    }
+
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
+    public function setValue(string $value): void
+    {
+        $this->value = $value;
     }
 }

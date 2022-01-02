@@ -25,6 +25,7 @@ class FieldFactory
                 $radio = new Radio($field);
                 $radio->setRules(FieldFactory::filterRules($fieldData));
                 $radio->setMessages($fieldData['message']);
+                $radio->setValue($fieldData['value']);
 
                 return $radio;
             case 'check':
@@ -57,8 +58,8 @@ class FieldFactory
     private static function filterRules(array $fieldData): array
     {
         $ruleProps = collect([
-            'min',
-            'max',
+            'minLength',
+            'maxLength',
             'required',
         ]);
 

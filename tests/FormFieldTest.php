@@ -97,10 +97,12 @@ class FormFieldTest extends TestCase
         $radio = new Radio($this->field);
         $expectedRules = ['required'];
         $radio->setRules($expectedRules);
+        $radio->setValue('test_value');
 
         $this->assertSame('Test field', $radio->getLabel());
         $this->assertSame('test_field', $radio->getName());
         $this->assertEquals($expectedRules, $radio->getRules());
+        $this->assertSame('test_value', $radio->getValue());
     }
 
     /**
