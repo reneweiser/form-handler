@@ -84,8 +84,8 @@ class FormTemplateTest extends TestCase
         $trueValidator = new MockTrueValidator();
         $falseValidator = new MockFalseValidator();
 
-        $this->assertSame([], $trueValidator->isValid($form));
-        $this->assertSame(['some message'], $falseValidator->isValid($form));
+        $this->assertSame([], $trueValidator->validate($form));
+        $this->assertSame(['some message'], $falseValidator->validate($form));
     }
 
     /**

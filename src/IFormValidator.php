@@ -4,5 +4,5 @@ namespace Rweiser\FormHandler;
 
 interface IFormValidator
 {
-    function isValid(Form $form): array;
+    function validate(Form $form): array;
 }
