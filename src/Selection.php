@@ -38,7 +38,7 @@ class Selection implements IFormField, IRenderable, IHasRules
 
     public function getRules(): array
     {
-        return $this->rules;
+        return [$this->getName() => $this->rules];
     }
 
     public function setOptions(array $options): void
@@ -53,7 +53,7 @@ class Selection implements IFormField, IRenderable, IHasRules
 
     public function getMessages(): array
     {
-        return $this->messages;
+        return [$this->getName() => $this->messages];
     }
 
     public function setMessages(string $message)

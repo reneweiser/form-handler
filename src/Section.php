@@ -41,8 +41,7 @@ class Section implements IFormField, IRenderable, IHasRules
     function getRules(): array
     {
         return collect($this->fields)->reduce(function(array $acc, IHasRules $cur) {
-            $acc[$cur->getName()] = $cur->getRules();
-            return $acc;
+            return array_merge($acc, $cur->getRules());
         }, []);
     }
 
@@ -53,8 +52,7 @@ class Section implements IFormField, IRenderable, IHasRules
             if (count($messages) === 0)
                 return $acc;
 
-            $acc[$cur->getName()] = $messages;
-            return $acc;
+            return array_merge($acc, $cur->getMessages());
         }, []);
     }
 }

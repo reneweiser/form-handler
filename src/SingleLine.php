@@ -32,7 +32,7 @@ class SingleLine implements IFormField, IRenderable, IHasRules
 
     function getRules(): array
     {
-        return $this->rules;
+        return [$this->getName() => $this->rules];
     }
 
     public function setRules(array $rules): void
@@ -42,7 +42,7 @@ class SingleLine implements IFormField, IRenderable, IHasRules
 
     public function getMessages(): array
     {
-        return $this->messages;
+        return [$this->getName() => $this->messages];
     }
 
     public function setMessages(string $message)
