@@ -5,10 +5,10 @@ namespace Rweiser\FormHandler\Tests;
 use PHPUnit\Framework\TestCase;
 use Rweiser\FormHandler\Alert;
 use Rweiser\FormHandler\Check;
-use Rweiser\FormHandler\DateTime;
-use Rweiser\FormHandler\FieldFactory;
 use Rweiser\FormHandler\FormField;
 use Rweiser\FormHandler\FormFileTemplate;
+use Rweiser\FormHandler\IFormTranslator;
+use Rweiser\FormHandler\MockFieldTranslator;
 use Rweiser\FormHandler\Paragraph;
 use Rweiser\FormHandler\Radio;
 use Rweiser\FormHandler\Section;
@@ -165,12 +165,24 @@ class FormFieldTest extends TestCase
      */
     public function it_creates_fields_based_on_data()
     {
-        $template = new FormFileTemplate(__DIR__.'/test-data/user-data.yml');
+        $translator = $this->createStub(IFormTranslator::class);
+        $template = new FormFileTemplate(__DIR__.'/test-data/user-data.yml', $translator);
 
-        $this->assertCount(1, $template->getFields());
+        $this->assertCount(2, $template->getFields());
 
         $section = $template->getFields()[0];
 
-        $this->assertCount(8, $section->getFields());
+        $this->assertCount(9, $section->getFields());
+    }
+
+    /**
+     * @test
+     */
+    public function it_translates_messages()
+    {
+        $translator = new MockFieldTranslator();
+        $template = new FormFileTemplate(__DIR__.'/test-data/user-data.yml', $translator);
+
+        $this->assertEquals('translated', $template->getFields()[0]->getFields()[0]->getMessages()['name'][0]);
     }
 }

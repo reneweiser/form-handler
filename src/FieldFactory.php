@@ -18,32 +18,32 @@ class FieldFactory
             case 'paragraph':
                 $paragraph = new Paragraph($field);
                 $paragraph->setRules(FieldFactory::filterRules($fieldData));
-                $paragraph->setMessages($fieldData['message']);
+                $paragraph->setMessages($translator->translateMessage($fieldData['message']));
 
                 return $paragraph;
             case 'radio':
                 $radio = new Radio($field);
                 $radio->setRules(FieldFactory::filterRules($fieldData));
-                $radio->setMessages($fieldData['message']);
+                $radio->setMessages($translator->translateMessage($fieldData['message']));
                 $radio->setValue($fieldData['value']);
 
                 return $radio;
             case 'check':
                 $check = new Check($field);
                 $check->setRules(FieldFactory::filterRules($fieldData));
-                $check->setMessages($fieldData['message']);
+                $check->setMessages($translator->translateMessage($fieldData['message']));
 
                 return $check;
             case 'selection':
                 $selection = new Selection($field);
                 $selection->setRules(FieldFactory::filterRules($fieldData));
-                $selection->setMessages($fieldData['message']);
+                $selection->setMessages($translator->translateMessage($fieldData['message']));
 
                 return $selection;
             case 'single-line':
                 $singleLine = new SingleLine($field);
                 $singleLine->setRules(FieldFactory::filterRules($fieldData));
-                $singleLine->setMessages($fieldData['message']);
+                $singleLine->setMessages($translator->translateMessage($fieldData['message']));
 
                 return $singleLine;
             case 'text-block':

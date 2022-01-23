@@ -6,6 +6,11 @@ class MockFieldTranslator implements IFormTranslator
 {
     public function translate(FormField $field): FormField
     {
-        return new FormField('Translated', $field->getName());
+        return $field;
+    }
+
+    public function translateMessage(string $messageKey): string
+    {
+        return 'translated';
     }
 }

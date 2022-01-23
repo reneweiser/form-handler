@@ -27,11 +27,13 @@
       label: form.type_1
       message: Error message for type
       name: type
+      value: value_1
       required: false
     - type: radio
       label: form.type_2
       message: Error message for type
       name: type
+      value: value_1
       required: false
     - type: check
       label: form.agree

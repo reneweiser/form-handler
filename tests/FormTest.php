@@ -1,12 +1,8 @@
 <?php
 
-namespace Rweiser\FormHandler\Tests;
-
 use PHPUnit\Framework\TestCase;
-use Rweiser\FormHandler\Form;
-use Rweiser\FormHandler\FormField;
 use Rweiser\FormHandler\FormFileTemplate;
-use Rweiser\FormHandler\IRenderable;
+use Rweiser\FormHandler\NullTranslator;
 
 class FormTest extends TestCase
 {
@@ -14,6 +10,16 @@ class FormTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->template = new FormFileTemplate(__DIR__.'/test-data/user-data.yml');
+        $translator = new NullTranslator();
+        $this->template = new FormFileTemplate(__DIR__.'/test-data/user-data.yml', $translator);
+    }
+
+    /*
+     * @test
+     */
+    public function test()
+    {
+        var_dump($this->template->getMessages());
+//        $this->assertEquals('something', $this->template->getMessages());
     }
 }
