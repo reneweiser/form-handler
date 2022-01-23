@@ -8,4 +8,9 @@ class NullTranslator implements IFormTranslator
     {
         return new FormField($field->getLabel(), $field->getName());
     }
+
+    public function translateMessage(string $messageKey): string
+    {
+        return '';
+    }
 }
